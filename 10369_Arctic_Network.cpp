@@ -1,7 +1,4 @@
-/*
-10369_Arctic_Network.cpp
-Author : Md. Mahbubul Huq (Riyad)
-*/
+#define _CRT_SECURE_NO_WARNINGS
 
 #include <stdio.h>
 #include <math.h>

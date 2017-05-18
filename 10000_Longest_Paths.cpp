@@ -15,6 +15,7 @@ int N, S, cn = 0, d[MAXN + 1];
 
 int arr[MAXN][MAXN + 1];
 int queue[2*MAXN], ql = 0;
+int added[MAXN];
 
 void init()
 {
@@ -23,6 +24,7 @@ void init()
 	{
 		arr[i][0] = 0;
 		d[i] = 0;
+		added[i] = 0;
 	}
 	ql = 0;
 }
@@ -31,6 +33,7 @@ void enQ(int a)
 	if (ql < MAXN)
 	{
 		queue[ql++] = a;
+		++added[a];
 	}
 }
 
@@ -41,6 +44,7 @@ int deQ()
 	{
 		--ql;
 		a = queue[ql];
+		--added[a];
 	}
 	return a;
 }
@@ -61,27 +65,30 @@ void bfs()
 	while (!isEmptyQ())
 	{
 		u = deQ();
-		l = arr[u][0];
-		for (i = 1; i <= l; i++)
+		if (added[u] == 0)
 		{
-			v = arr[u][i];
-			if (d[v] < d[u] + 1)
+			l = arr[u][0];
+			for (i = 1; i <= l; i++)
 			{
-				d[v] = d[u] + 1;
-				enQ(v);
+				v = arr[u][i];
+				if (d[v] < d[u] + 1)
+				{
+					d[v] = d[u] + 1;
+					enQ(v);
 
-				if (d[v] > maxv)
-				{
-					maxv = d[v];
-					maxn = v;
-				}
-				else if (d[v] == maxv)
-				{
-					if (maxn > v)
+					if (d[v] > maxv)
+					{
+						maxv = d[v];
 						maxn = v;
+					}
+					else if (d[v] == maxv)
+					{
+						if (maxn > v)
+							maxn = v;
+					}
 				}
-			}
-		} //end for
+			} //end for
+		} //endif
 	}//end while
 
 	printf("Case %d: The longest path from %d has length %d, finishing at %d.\n\n", ++cn, S, maxv, maxn);
