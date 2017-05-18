@@ -108,6 +108,7 @@ void print_arr()
 
 int main()
 {
+	//freopen("inp.txt", "r", stdin);
 	int cn = 0, i, j;
 	int colorc;
 	while (scanf("%d %d", &MAXX, &MAXY) == 2)
